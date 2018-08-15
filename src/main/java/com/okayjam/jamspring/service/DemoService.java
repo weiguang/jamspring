@@ -1,7 +1,7 @@
 package com.okayjam.jamspring.service;
 
 import com.okayjam.jamspring.mapper.DemoMapper;
-import com.okayjam.jamspring.model.DemoModel;
+import com.okayjam.jamspring.entity.Demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,19 +22,19 @@ public class DemoService {
         this.dao = dao;
     }
 
-    public boolean insert(DemoModel model) {
+    public boolean insert(Demo model) {
         return dao.insert(model) > 0;
     }
 
-    public DemoModel select(int id) {
+    public Demo select(int id) {
         return dao.select(id);
     }
 
-    public List<DemoModel> selectAll() {
+    public List<Demo> selectAll() {
         return dao.selectAll();
     }
 
-    public boolean updateValue(DemoModel model) {
+    public boolean updateValue(Demo model) {
         return dao.updateValue(model) > 0;
     }
 

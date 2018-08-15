@@ -1,11 +1,11 @@
-package com.okayjam.jamspring.model;
+package com.okayjam.jamspring.entity;
 
 /**
  * @description: ${description}
  * @author: Chen wei guang <weiguangchen@sf-express.com>
  * @create: 2018/08/08 14:41
  **/
-public class DemoModel {
+public class Demo {
     private Integer id;
     private String key;
 

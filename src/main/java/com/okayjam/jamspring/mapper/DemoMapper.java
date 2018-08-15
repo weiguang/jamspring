@@ -1,6 +1,6 @@
 package com.okayjam.jamspring.mapper;
 
-import com.okayjam.jamspring.model.DemoModel;
+import com.okayjam.jamspring.entity.Demo;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -18,19 +18,19 @@ public interface DemoMapper {
     // 插入 并查询id 赋给传入的对象
     @Insert("INSERT INTO tb_test(key, value) VALUES(#{key}, #{value})")
     @SelectKey(statement = "SELECT seq id FROM sqlite_sequence WHERE (name = 'tb_test')", before = false, keyProperty = "id", resultType = int.class)
-    int insert(DemoModel model);
+    int insert(Demo model);
 
     // 根据 ID 查询
     @Select("SELECT * FROM tb_test WHERE id=#{id}")
-    DemoModel select(int id);
+    Demo select(int id);
 
     // 查询全部
     @Select("SELECT * FROM tb_test")
-    List<DemoModel> selectAll();
+    List<Demo> selectAll();
 
     // 更新 value
     @Update("UPDATE tb_test SET value=#{value} WHERE id=#{id}")
-    int updateValue(DemoModel model);
+    int updateValue(Demo model);
 
     // 根据 ID 删除
     @Delete("DELETE FROM tb_test WHERE id=#{id}")
