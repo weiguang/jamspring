@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @description: ${description}
- * @author: Chen wei guang <weiguangchen@sf-express.com>
+ * @author: Chen wei guang
  * @create: 2018/08/08 14:42
  **/
 @Mapper

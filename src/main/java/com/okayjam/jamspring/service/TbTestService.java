@@ -9,18 +9,14 @@ import java.util.List;
 
 /**
  * @description: ${description}
- * @author: Chen wei guang <weiguangchen@sf-express.com>
+ * @author: Chen wei guang
  * @create: 2018/08/08 14:43
  **/
 @Service
 public class TbTestService {
 
-    private final TbTestMapper dao;
-
     @Autowired
-    public TbTestService(TbTestMapper dao) {
-        this.dao = dao;
-    }
+    private  TbTestMapper dao;
 
     public boolean insert(TbTest model) {
         return dao.insert(model) > 0;

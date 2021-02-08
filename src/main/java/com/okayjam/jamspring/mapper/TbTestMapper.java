@@ -1,7 +1,7 @@
 package com.okayjam.jamspring.mapper;
 
-import com.okayjam.jamspring.entity.Demo;
 import com.okayjam.jamspring.entity.TbTest;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;

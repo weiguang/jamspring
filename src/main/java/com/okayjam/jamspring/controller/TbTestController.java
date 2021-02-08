@@ -1,5 +1,6 @@
 package com.okayjam.jamspring.controller;
 
+import com.okayjam.jamspring.entity.TbTest;
 import com.okayjam.jamspring.service.TbTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,7 @@ import java.util.List;
 
 /**
  * @description: ${description}
- * @author: Chen wei guang <weiguangchen@sf-express.com>
+ * @author: Chen wei guang
  * @create: 2018/08/08 14:43
  **/
 @Controller
