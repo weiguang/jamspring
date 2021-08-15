@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.okayjam.web.lock.mapper.BaseDistributedLockMapper">
+
+    <resultMap type="com.okayjam.web.lock.entity.BaseDistributedLock" id="BaseDistributedLockMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="lockKey" column="lock_Key" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseDistributedLockMap">
+        select
+          id, lock_Key, create_time
+        from remotedb.base_distributed_lock
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseDistributedLockMap">
+        select
+          id, lock_Key, create_time
+        from remotedb.base_distributed_lock
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseDistributedLockMap">
+        select
+          id, lock_Key, create_time
+        from remotedb.base_distributed_lock
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="lockKey != null and lockKey != ''">
+                and lock_Key = #{lockKey}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into remotedb.base_distributed_lock(lock_Key, create_time)
+        values (#{lockKey}, #{createTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update remotedb.base_distributed_lock
+        <set>
+            <if test="lockKey != null and lockKey != ''">
+                lock_Key = #{lockKey},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+
+    <!--查询单个-->
+    <select id="queryByKey" resultMap="BaseDistributedLockMap">
+        select
+            id, lock_Key, create_time
+        from base_distributed_lock
+        where lock_Key = #{key}
+    </select>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from base_distributed_lock where id = #{id}
+    </delete>
+
+
+    <!--通过key删除-->
+    <delete id="deleteByKey">
+        delete from base_distributed_lock where lock_Key = #{key}
+    </delete>
+
+
+    <!--新增所有列-->
+    <insert id="insertKey" keyProperty="id" useGeneratedKeys="true">
+        insert into base_distributed_lock(lock_Key, create_time)
+        select  #{lockKey}, now()
+           from dual where not exists
+                (select 1 from base_distributed_lock where lock_Key = #{lockKey})
+    </insert>
+
+</mapper>
