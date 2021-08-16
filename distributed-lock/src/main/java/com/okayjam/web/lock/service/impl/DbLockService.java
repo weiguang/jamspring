@@ -1,7 +1,7 @@
 package com.okayjam.web.lock.service.impl;
 
 import com.okayjam.web.lock.entity.BaseDistributedLock;
-import com.okayjam.web.lock.mapper.BaseDistributedLockMapper;
+import com.okayjam.web.lock.dao.BaseDistributedLockMapper;
 import com.okayjam.web.lock.service.LockService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

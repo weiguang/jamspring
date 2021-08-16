@@ -1,4 +1,4 @@
-package com.okayjam.web.service.mapper;
+package com.okayjam.web.service.dao;
 
 import com.okayjam.web.service.entity.TbTest;
 import org.apache.ibatis.annotations.Mapper;

@@ -18,6 +18,12 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.okayjam.web</groupId>
+            <artifactId>distributed-lock</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <!-- 自动导入-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -57,6 +63,7 @@
             <artifactId>mybatis-generator-core</artifactId>
             <version>1.4.0</version>
         </dependency>
+
     </dependencies>
 
     <build>

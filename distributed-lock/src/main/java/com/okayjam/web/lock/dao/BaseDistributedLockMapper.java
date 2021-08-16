@@ -1,9 +1,7 @@
-package com.okayjam.web.lock.mapper;
+package com.okayjam.web.lock.dao;
 
 import com.okayjam.web.lock.entity.BaseDistributedLock;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import java.util.List;
 
 /**
  * (BaseDistributedLock)表数据库访问层

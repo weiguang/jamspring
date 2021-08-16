@@ -1,7 +1,7 @@
 package com.okayjam.web.service.service;
 
 import com.okayjam.web.service.entity.TbTest;
-import com.okayjam.web.service.mapper.TbTestMapper;
+import com.okayjam.web.service.dao.TbTestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,24 +1,28 @@
-package com.okayjam.web.service;
+package com.okayjam.web.service.controller;
 
 import com.okayjam.web.lock.service.LockService;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@SpringBootTest
-class ServiceApplicationTests {
+/**
+ * @author Chen weiguang chen2621978@gmail.com
+ * @date 2021/08/16 16:47
+ **/
+@RestController
+public class TestController {
 
     @Autowired
     @Qualifier("dbLockService")
     LockService lockService;
 
-    @Test
-    void tryLock() throws InterruptedException {
+    @RequestMapping("/test1")
+    public String demo() {
         String key = "jam";
         if (!lockService.tryLock(key)) {
             // 没有获取到锁返回
-            return;
+            return "";
         }
         try {
             // 这里写业务逻辑
@@ -29,5 +33,7 @@ class ServiceApplicationTests {
         } finally {
             lockService.releaseLock(key);
         }
+
+        return "Hello！";
     }
 }
