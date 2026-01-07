@@ -1,0 +1,71 @@
+server:
+  port: 8080
+  shutdown: graceful
+
+spring:
+  profiles:
+    active: @package.environment@
+  application:
+    name: jamWeb
+  devtools:
+    restart:
+      enabled: true
+      poll-interval: 1000
+      quiet-period: 400
+    livereload:
+      enabled: true
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+  datasource:
+    hikari:
+      max-lifetime: 1800000
+      maximum-pool-size: 20
+      minimum-idle: 5
+      # 连接超时时间（默认30秒）
+      connection-timeout: 30000
+      # 空闲连接超时时间（10分钟），超过此时间的空闲连接会被释放
+      idle-timeout: 600000
+      # 连接保活时间，设置为比max-lifetime稍短，建议为max-lifetime的90%
+      # 添加连接池预热配置
+      initialization-fail-timeout: 0
+      # 连接验证优化
+      connection-test-query: SELECT 1
+
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://xxx.com:3307/remotedb?useUnicode=true&characterEncoding=UTF-8&useSSL=false&characterSetResults=UTF-8
+#    username:
+#    password:
+
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:D:\UGit\java\jamspring\jam.db
+    username:
+    password:
+
+
+mybatis:
+  type-aliases-package: com.okayjam.web.service.entity
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+springdoc:
+  swagger-ui:
+    enabled: true
+  api-docs:
+    enabled: true
+
+http:
+  client:
+    connect-timeout: 30
+    read-timeout: 60
+    max-per-route: 100
+    max-total: 200
