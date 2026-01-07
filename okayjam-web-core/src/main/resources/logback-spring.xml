@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <!-- 应用名称-->
+    <property name="appName" value="jamWeb"/>
+    <property name="logHome" value="logs"/>
+    <!-- 日志的存放目录-->
+    <!-- debug-->
+    <property name="DEBUG_LOG_FILE_NAME_PATTERN"
+            value="${logHome}/${appName}-debug.%d{yyyy-MM-dd}.%i.log"/>
+    <property name="INFO_LOG_FILE_NAME_PATTERN"
+            value="${logHome}/${appName}-info.%d{yyyy-MM-dd}.%i.log"/>
+    <property name="WARN_LOG_FILE_NAME_PATTERN"
+            value="${logHome}/${appName}-warn.%d{yyyy-MM-dd}.%i.log"/>
+    <property name="ERROR_LOG_FILE_NAME_PATTERN"
+            value="${logHome}/${appName}-error.%d{yyyy-MM-dd}.%i.log"/>
+    <property name="JSON_LOG_FILE_NAME_PATTERN"
+            value="${logHome}/${appName}-json.%d{yyyy-MM-dd}.%i.log"/>
+    <!-- 日志格式 -->
+    <property name="CONSOLE_LOG_PATTERN"
+            value="%clr(%d{${LOG_DATEFORMAT_PATTERN:-MM-dd HH:mm:ss.SSS}}) %clr(%5p) %clr(${PID:-}){magenta}%clr([%t]){faint} [%X{TRACE_ID}] %clr( %logger{60}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <property name="FILE_LOG_PATTERN"
+            value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} %5p ${PID:-} [%t] [%X{TRACE_ID}] %logger{60} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <!--输出到控制台-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!--输出到DEBUG文件-->
+    <appender name="debug_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${DEBUG_LOG_FILE_NAME_PATTERN}</fileNamePattern>
+            <!-- 日志保留天数 -->
+            <maxHistory>20</maxHistory>
+            <!-- 日志文件上限大小，达到指定大小后删除旧的日志文件 -->
+            <totalSizeCap>5GB</totalSizeCap>
+            <!-- 每个日志文件的最大值 -->
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <!-- 此日志文件只记录debug级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>debug</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--输出到INFO文件-->
+    <appender name="info_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${INFO_LOG_FILE_NAME_PATTERN}</fileNamePattern>
+            <!-- 日志保留天数 -->
+            <maxHistory>30</maxHistory>
+            <!-- 日志文件上限大小，达到指定大小后删除旧的日志文件 -->
+            <totalSizeCap>10GB</totalSizeCap>
+            <!-- 每个日志文件的最大值 -->
+            <maxFileSize>100MB</maxFileSize>
+
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--输出到WARN文件-->
+    <appender name="warn_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${WARN_LOG_FILE_NAME_PATTERN}</fileNamePattern>
+            <!-- 日志保留天数 -->
+            <maxHistory>30</maxHistory>
+            <!-- 日志文件上限大小，达到指定大小后删除旧的日志文件 -->
+            <totalSizeCap>5GB</totalSizeCap>
+            <!-- 每个日志文件的最大值 -->
+            <maxFileSize>50MB</maxFileSize>
+
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <!-- 此日志文件只记录warn级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>warn</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--输出到ERROR文件-->
+    <appender name="error_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${ERROR_LOG_FILE_NAME_PATTERN}</fileNamePattern>
+            <!-- 日志保留天数 -->
+            <maxHistory>30</maxHistory>
+            <!-- 日志文件上限大小，达到指定大小后删除旧的日志文件 -->
+            <totalSizeCap>10GB</totalSizeCap>
+            <!-- 每个日志文件的最大值 -->
+            <maxFileSize>50MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <!-- 此日志文件只记录error级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="json_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 此日志文件只记录info级别的 -->
+        <!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+        <!--            <level>info</level>-->
+        <!--            <onMatch>ACCEPT</onMatch>-->
+        <!--        </filter>-->
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${JSON_LOG_FILE_NAME_PATTERN}</fileNamePattern>
+            <!-- 日志保留天数 -->
+            <maxHistory>30</maxHistory>
+            <!-- 日志文件上限大小，达到指定大小后删除旧的日志文件 -->
+            <totalSizeCap>10GB</totalSizeCap>
+            <!-- 每个日志文件的最大值 -->
+            <maxFileSize>50MB</maxFileSize>
+
+        </rollingPolicy>
+        <!--        <encoder>-->
+        <!--            <pattern>${CONSOLE_LOG_PATTERN}</pattern>-->
+        <!--        </encoder>-->
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <pattern>
+                    <pattern>
+                        {
+                        "app": "${appName}",
+                        "level": "%level",
+                        "traceId": "%X{TRACE_ID}",
+                        "timestamp": "%date{yyyy-MM-dd HH:mm:ss.SSS}",
+                        "class": "%logger{40}",
+                        "message": "%message"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+
+    <!-- region 根据不同的环境设置不同的日志输出级别 -->
+    <springProfile name="default,local,dev">
+        <root level="info">
+            <appender-ref ref="console"/>
+            <appender-ref ref="error_file"/>
+            <appender-ref ref="json_file"/>
+            <appender-ref ref="info_file"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="prod,pre,midas,test">
+        <root level="info">
+            <appender-ref ref="console"/>
+            <appender-ref ref="debug_file"/>
+            <appender-ref ref="info_file"/>
+            <appender-ref ref="warn_file"/>
+            <appender-ref ref="error_file"/>
+            <appender-ref ref="json_file"/>
+        </root>
+
+    </springProfile>
+    <!-- endregion -->
+
+    <logger name="com.okayjam.web.core.dao" level="DEBUG"/>
+
+</configuration>
