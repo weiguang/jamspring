@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * rms-controller
+ * com.okayjam.web.req
  *
  * @author JamChen
  * @date 2023/05/15 11:08
