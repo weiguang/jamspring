@@ -21,7 +21,7 @@ public class TestController {
     LockService lockService;
 
 
-//    @Operation(summary = "ping简单测试", description = "测试基本服务是否正常")
+    //    @Operation(summary = "ping简单测试", description = "测试基本服务是否正常")
     @RequestMapping("/ping")
     public String ping(@RequestHeader Map<String, String> headers) {
         return "pong";
@@ -37,8 +37,8 @@ public class TestController {
         try {
             // 这里写业务逻辑
             Thread.sleep(1000);
-            System.out.println(Thread.currentThread() .getStackTrace()[1].getMethodName());
-            Thread.sleep(2* 1000);
+            System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName());
+            Thread.sleep(2 * 1000);
         } catch (Exception e) {
         } finally {
             lockService.releaseLock(key);

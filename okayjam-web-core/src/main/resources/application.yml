@@ -37,10 +37,10 @@ spring:
       # 连接验证优化
       connection-test-query: SELECT 1
 
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://xxx.com:3307/remotedb?useUnicode=true&characterEncoding=UTF-8&useSSL=false&characterSetResults=UTF-8
-#    username:
-#    password:
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    url: jdbc:mysql://xxx.com:3307/remotedb?useUnicode=true&characterEncoding=UTF-8&useSSL=false&characterSetResults=UTF-8
+    #    username:
+    #    password:
 
     driver-class-name: org.sqlite.JDBC
     url: jdbc:sqlite:D:\UGit\java\jamspring\jam.db
@@ -70,5 +70,11 @@ http:
   client:
     connect-timeout: 30
     read-timeout: 60
-    max-per-route: 100
+    max-per-route: 50
     max-total: 200
+
+# 节假日 API 配置
+holiday:
+  api:
+    # 节假日 API 基础地址（使用 timor.tech 免费 API）
+    base-url: http://timor.tech/api/holiday

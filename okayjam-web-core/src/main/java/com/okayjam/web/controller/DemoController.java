@@ -2,13 +2,16 @@ package com.okayjam.web.controller;
 
 import com.okayjam.web.entity.Demo;
 import com.okayjam.web.service.DemoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
 import java.util.List;
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @description: ${description}
@@ -28,6 +31,7 @@ public class DemoController {
 
     /**
      * JSP 测试
+     *
      * @return JSP 视图
      */
     @RequestMapping("/hello")
@@ -45,13 +49,13 @@ public class DemoController {
     }
 
     @RequestMapping("/tep2")
-    public ModelAndView tep2(@RequestParam(value="name") String username) {
+    public ModelAndView tep2(@RequestParam(value = "name") String username) {
         ModelAndView mv = new ModelAndView("hello"); // 对应 demo.jsp 路径
         mv.addObject("value", username);
         return mv;
     }
 
-    @RequestMapping(value="/tep3")
+    @RequestMapping(value = "/tep3")
     public ModelAndView tep3(@PathVariable String name) {
         ModelAndView mv = new ModelAndView("hello"); // 对应 demo.jsp 路径
         mv.addObject("value", name);
@@ -70,9 +74,10 @@ public class DemoController {
 
     /**
      * 接口测试
+     *
      * @return JSON 字符串
      */
-        @RequestMapping("/demos")
+    @RequestMapping("/demos")
     @ResponseBody
     public List<Demo> allDemo() {
         return service.selectAll();

@@ -13,5 +13,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class TbTestQueryReq extends BaseReq {
+
     private String key;
 }

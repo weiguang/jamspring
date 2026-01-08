@@ -2,10 +2,9 @@ package com.okayjam.web.service;
 
 import com.okayjam.web.dao.DemoMapper;
 import com.okayjam.web.entity.Demo;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @description: ${description}

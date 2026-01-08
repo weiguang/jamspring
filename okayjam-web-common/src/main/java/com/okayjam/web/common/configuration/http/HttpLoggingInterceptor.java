@@ -22,7 +22,7 @@ import org.springframework.util.StreamUtils;
  * Used for logging RestClient requests and responses
  *
  * @author JamChen jamchen@tencent.com
- *  2025/12/18
+ *         2025/12/18
  **/
 @Slf4j
 public class HttpLoggingInterceptor implements ClientHttpRequestInterceptor {

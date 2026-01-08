@@ -77,6 +77,22 @@ public class HttpClientFactory {
     // ===================== Factory Methods =====================
 
     /**
+     * Create a Jackson message converter that supports both application/json and text/plain content types.
+     * This is useful when the server returns JSON data with text/plain content type.
+     *
+     * @return MappingJackson2HttpMessageConverter configured with multiple media types
+     */
+    public static MappingJackson2HttpMessageConverter createTextPlainJsonConverter() {
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        converter.setSupportedMediaTypes(List.of(
+                MediaType.APPLICATION_JSON,
+                MediaType.TEXT_PLAIN,
+                new MediaType("text", "plain", StandardCharsets.UTF_8)
+        ));
+        return converter;
+    }
+
+    /**
      * Create a configured Apache HttpClient 5 with connection pooling
      *
      * @return configured CloseableHttpClient
@@ -123,22 +139,6 @@ public class HttpClientFactory {
      */
     public HttpComponentsClientHttpRequestFactory createRequestFactory() {
         return new HttpComponentsClientHttpRequestFactory(createHttpClient());
-    }
-
-    /**
-     * Create a Jackson message converter that supports both application/json and text/plain content types.
-     * This is useful when the server returns JSON data with text/plain content type.
-     *
-     * @return MappingJackson2HttpMessageConverter configured with multiple media types
-     */
-    public static MappingJackson2HttpMessageConverter createTextPlainJsonConverter() {
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setSupportedMediaTypes(List.of(
-                MediaType.APPLICATION_JSON,
-                MediaType.TEXT_PLAIN,
-                new MediaType("text", "plain", StandardCharsets.UTF_8)
-        ));
-        return converter;
     }
 
     /**

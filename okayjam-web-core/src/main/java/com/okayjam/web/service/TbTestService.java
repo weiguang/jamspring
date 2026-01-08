@@ -1,11 +1,10 @@
 package com.okayjam.web.service;
 
-import com.okayjam.web.entity.TbTest;
 import com.okayjam.web.dao.TbTestMapper;
+import com.okayjam.web.entity.TbTest;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @description: ${description}
@@ -16,7 +15,7 @@ import java.util.List;
 public class TbTestService {
 
     @Autowired
-    private  TbTestMapper dao;
+    private TbTestMapper dao;
 
     public boolean insert(TbTest model) {
         return dao.insert(model) > 0;
