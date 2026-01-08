@@ -1,4 +1,4 @@
-package com.okayjam.web.core;
+package com.okayjam.web;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

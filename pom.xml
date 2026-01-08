@@ -23,6 +23,7 @@
         <module>okayjam-web-common</module>
         <module>okayjam-web-core</module>
         <module>distributed-lock</module>
+        <module>okayjam-web-dao</module>
     </modules>
 
     <properties>

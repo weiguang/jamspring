@@ -1,7 +1,7 @@
-package com.okayjam.web.core.controller;
+package com.okayjam.web.controller;
 
-import com.okayjam.web.core.entity.Demo;
-import com.okayjam.web.core.service.DemoService;
+import com.okayjam.web.entity.Demo;
+import com.okayjam.web.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

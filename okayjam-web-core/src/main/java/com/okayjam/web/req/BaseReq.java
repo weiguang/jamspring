@@ -1,4 +1,4 @@
-package com.okayjam.web.core.req;
+package com.okayjam.web.req;
 
 
 import lombok.Data;
@@ -12,6 +12,6 @@ import lombok.EqualsAndHashCode;
  **/
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class TbTestQueryReq extends BaseReq {
-    private String key;
+public class BaseReq extends PageParam {
+
 }

@@ -1,4 +1,4 @@
-package com.okayjam.web.core.configuration;
+package com.okayjam.web.configuration;
 
 import java.util.Map;
 import java.util.concurrent.Executor;

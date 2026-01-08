@@ -1,4 +1,4 @@
-package com.okayjam.web.core.configuration;
+package com.okayjam.web.configuration;
 
 import com.okayjam.web.common.util.HttpUtil;
 import com.okayjam.web.common.util.JsonUtil;

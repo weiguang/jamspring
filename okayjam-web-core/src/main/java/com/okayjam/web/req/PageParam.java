@@ -1,4 +1,4 @@
-package com.okayjam.web.core.req;
+package com.okayjam.web.req;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;

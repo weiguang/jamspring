@@ -1,7 +1,7 @@
-package com.okayjam.web.core.service;
+package com.okayjam.web.service;
 
-import com.okayjam.web.core.dao.DemoMapper;
-import com.okayjam.web.core.entity.Demo;
+import com.okayjam.web.dao.DemoMapper;
+import com.okayjam.web.entity.Demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

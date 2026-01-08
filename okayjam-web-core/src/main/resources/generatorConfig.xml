@@ -7,7 +7,7 @@
         <!--数据库URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3307/jam?useSSL=false" userId="sf" password=""/>
         <!-- 生成实体的包名和位置-->
-        <javaModelGenerator targetPackage="com.okayjam.web.core.entity" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.okayjam.web.entity" targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaModelGenerator>
 
@@ -17,7 +17,7 @@
         </sqlMapGenerator>
 
         <!-- 生成DAO的包名和位置-->
-        <javaClientGenerator targetPackage="com.okayjam.web.core.dao" targetProject="src/main/java" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="com.okayjam.web.dao" targetProject="src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 

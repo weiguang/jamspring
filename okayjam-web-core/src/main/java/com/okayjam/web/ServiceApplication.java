@@ -1,12 +1,11 @@
-package com.okayjam.web.core;
+package com.okayjam.web;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = {"com.okayjam.web.core.*","com.okayjam.web.lock.*"})
-// dao接口生成代理
-@MapperScan("com.okayjam.web.*.dao")
+@SpringBootApplication(scanBasePackages = {"com.okayjam.web.*"})
+@MapperScan({"com.okayjam.web.dao", "com.okayjam.web.lock.dao"})
 public class ServiceApplication {
 
     public static void main(String[] args) {

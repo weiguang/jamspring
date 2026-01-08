@@ -1,4 +1,4 @@
-package com.okayjam.web.core.entity;
+package com.okayjam.web.entity;
 
 /**
  * @description: ${description}

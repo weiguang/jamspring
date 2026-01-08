@@ -1,6 +1,6 @@
-package com.okayjam.web.core.dao;
+package com.okayjam.web.dao;
 
-import com.okayjam.web.core.entity.TbTest;
+import com.okayjam.web.entity.TbTest;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

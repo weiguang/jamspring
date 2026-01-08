@@ -1,6 +1,9 @@
 server:
   port: 8080
   shutdown: graceful
+  # 优化 JSP TLD 扫描，跳过不包含 TLD 的 JAR 文件
+  tomcat:
+    additional-tld-skip-patterns: '*.jar'
 
 spring:
   profiles:
@@ -46,8 +49,8 @@ spring:
 
 
 mybatis:
-  type-aliases-package: com.okayjam.web.service.entity
-  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.okayjam.web.entity
+  mapper-locations: classpath*:mapper/*Mapper.xml
   configuration:
     map-underscore-to-camel-case: true
 

@@ -1,13 +1,13 @@
-package com.okayjam.web.core.controller;
+package com.okayjam.web.controller;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.okayjam.web.common.dto.ResponseDto;
 import com.okayjam.web.common.util.DateUtil;
-import com.okayjam.web.core.entity.TbTest;
-import com.okayjam.web.core.service.TbTestService;
-import com.okayjam.web.core.req.TbTestQueryReq;
+import com.okayjam.web.entity.TbTest;
+import com.okayjam.web.service.TbTestService;
+import com.okayjam.web.req.TbTestQueryReq;
 import jakarta.annotation.Resource;
 import java.time.LocalDateTime;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,7 +77,7 @@ public class TbTestController {
      * 接口测试
      * @return JSON 字符串
      */
-    @PostMapping("insert")
+    @RequestMapping("insert")
     public Integer insert() {
         TbTest tbTest = new TbTest();
         tbTest.setValue("date");

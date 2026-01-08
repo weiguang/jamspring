@@ -1,4 +1,4 @@
-package com.okayjam.web.core.configuration;
+package com.okayjam.web.configuration;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;

@@ -1,6 +1,6 @@
-package com.okayjam.web.core.dao;
+package com.okayjam.web.dao;
 
-import com.okayjam.web.core.entity.Demo;
+import com.okayjam.web.entity.Demo;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 

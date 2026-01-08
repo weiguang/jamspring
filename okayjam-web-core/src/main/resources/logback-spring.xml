@@ -180,6 +180,6 @@
     </springProfile>
     <!-- endregion -->
 
-    <logger name="com.okayjam.web.core.dao" level="DEBUG"/>
+    <logger name="com.okayjam.web.dao" level="DEBUG"/>
 
 </configuration>

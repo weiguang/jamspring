@@ -1,4 +1,4 @@
-package com.okayjam.web.core.controller;
+package com.okayjam.web.controller;
 
 import com.okayjam.web.lock.service.LockService;
 import java.util.Map;
