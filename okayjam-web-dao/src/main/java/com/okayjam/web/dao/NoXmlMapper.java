@@ -2,7 +2,6 @@ package com.okayjam.web.dao;
 
 import com.okayjam.web.entity.Demo;
 import org.apache.ibatis.annotations.*;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -12,8 +11,7 @@ import java.util.List;
  * @create: 2018/08/08 14:42
  **/
 @Mapper
-@Component
-public interface DemoMapper {
+public interface NoXmlMapper {
 
     // 插入 并查询id 赋给传入的对象
     @Insert("INSERT INTO tb_test(key, value) VALUES(#{key}, #{value})")

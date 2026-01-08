@@ -9,6 +9,7 @@
         <artifactId>jamspring</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
+
     </parent>
 
     <artifactId>okayjam-web-core</artifactId>
@@ -18,6 +19,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jasper.version>11.0.15</jasper.version>
     </properties>
     <dependencies>
 
@@ -56,7 +58,7 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
-            <version>10.1.49</version>
+            <version>${jasper.version}</version>
         </dependency>
 
 

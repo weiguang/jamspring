@@ -6,6 +6,9 @@ server:
     additional-tld-skip-patterns: '*.jar'
 
 spring:
+  threads:
+    virtual:
+      enabled: true
   profiles:
     active: @package.environment@
   application:

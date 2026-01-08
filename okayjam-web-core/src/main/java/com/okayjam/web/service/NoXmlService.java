@@ -1,6 +1,6 @@
 package com.okayjam.web.service;
 
-import com.okayjam.web.dao.DemoMapper;
+import com.okayjam.web.dao.NoXmlMapper;
 import com.okayjam.web.entity.Demo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
  * @create: 2018/08/08 14:43
  **/
 @Service
-public class DemoService {
+public class NoXmlService {
 
-    private final DemoMapper dao;
+    private final NoXmlMapper dao;
 
     @Autowired
-    public DemoService(DemoMapper dao) {
+    public NoXmlService(NoXmlMapper dao) {
         this.dao = dao;
     }
 

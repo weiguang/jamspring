@@ -1,16 +1,11 @@
 package com.okayjam.web.controller;
 
-import com.okayjam.web.entity.Demo;
-import com.okayjam.web.service.DemoService;
-import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -18,16 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
  * @author: Chen wei guang
  * @create: 2018/08/08 14:43
  **/
-@RequestMapping("/api/demo")
+@RequestMapping("/api/jsp")
 @Controller
-public class DemoController {
+public class JspController {
 
-    private final DemoService service;
-
-    @Autowired
-    public DemoController(DemoService service) {
-        this.service = service;
-    }
 
     /**
      * JSP 测试
@@ -72,16 +61,6 @@ public class DemoController {
     }
 
 
-    /**
-     * 接口测试
-     *
-     * @return JSON 字符串
-     */
-    @RequestMapping("/demos")
-    @ResponseBody
-    public List<Demo> allDemo() {
-        return service.selectAll();
-    }
-    // @ResponseBody 如果返回的是对象 会自动转为json字符串，如果返回的是String 则返回该字符串
+
 }
 

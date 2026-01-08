@@ -5,8 +5,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.okayjam.web.common.dto.ResponseDto;
 import com.okayjam.web.common.util.DateUtil;
+import com.okayjam.web.entity.Demo;
 import com.okayjam.web.entity.TbTest;
 import com.okayjam.web.req.TbTestQueryReq;
+import com.okayjam.web.service.NoXmlService;
 import com.okayjam.web.service.TbTestService;
 import jakarta.annotation.Resource;
 import java.time.LocalDateTime;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -25,10 +28,14 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 @RequestMapping("api/dbTest")
-public class TbTestController {
+public class DBTestController {
 
     @Resource
     private TbTestService service;
+
+
+    @Resource
+    private NoXmlService noXmlService;
 
     /**
      * 接口测试
@@ -89,6 +96,21 @@ public class TbTestController {
         service.insert(tbTest);
         return tbTest.getId();
     }
+
+
+
+    /**
+     * 接口测试
+     *
+     * @return JSON 字符串
+     */
+    @RequestMapping("/noXml/list")
+    @ResponseBody
+    public List<Demo> allDemo() {
+        return noXmlService.selectAll();
+    }
+    // @ResponseBody 如果返回的是对象 会自动转为json字符串，如果返回的是String 则返回该字符串
+
 
 }
 
