@@ -20,7 +20,8 @@ Start() {
 }
 
 Stop() {
-  for ((j = 1; j < 60; j++)); do
+  j=1
+  while [ $j -lt 60 ]; do
     PROCESS=$(ps -ef | grep ${process_name} | grep -v grep | awk '{print $2}')
     if [ "$PROCESS" = "" ]; then
       break
@@ -30,7 +31,7 @@ Stop() {
       kill "$i"
     done
     sleep 2
-
+    j=$((j + 1))
   done
 }
 

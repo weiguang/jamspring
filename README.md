@@ -589,6 +589,10 @@ docker build -t jamspring:1.0.0 .
 
 # 构建镜像（指定多个标签）
 docker build -t jamspring:1.0.0 -t jamspring:latest .
+
+# 删除旧容器（可选）
+docker rm -f jamspring
+
 ```
 
 **2. 运行 Docker 容器**
@@ -642,7 +646,7 @@ docker restart jamspring
 docker rm -f jamspring
 
 # 进入容器
-docker exec -it jamspring /bin/bash
+docker exec -it jamspring /bin/sh
 ```
 
 **4. Docker Compose 部署（推荐）**
@@ -688,56 +692,6 @@ docker-compose down
 docker-compose restart
 ```
 
-**5. Dockerfile 说明**
-
-项目的 Dockerfile 特性：
-
-- **基础镜像**：使用腾讯 Kona JDK 21（`mirrors.tencent.com/tjdk/tencentkona21-ts4:21.0.9`）
-- **工作目录**：`/app/service`
-- **配置目录**：`/app/service/config`（可挂载外部配置）
-- **启动脚本**：使用 `service.sh` 管理应用生命周期
-- **网络工具**：预装 `procps-ng` 和 `iputils`，便于调试
-- **安全加固**：随机生成 root 密码
-- **暴露端口**：8080（与应用端口一致）
-
-**6. 镜像推送到仓库**
-
-```bash
-# 登录 Docker 仓库
-docker login your-registry.com
-
-# 打标签
-docker tag jamspring:latest your-registry.com/jamspring:1.0.0
-
-# 推送镜像
-docker push your-registry.com/jamspring:1.0.0
-
-# 从仓库拉取
-docker pull your-registry.com/jamspring:1.0.0
-```
-
-**7. 多阶段构建优化（可选）**
-
-如果需要在 Docker 中构建项目，可以使用多阶段构建：
-
-```dockerfile
-# 构建阶段
-FROM maven:3.8-openjdk-17 AS builder
-WORKDIR /build
-COPY . .
-RUN mvn clean package -DskipTests -Pprod
-
-# 运行阶段
-FROM mirrors.tencent.com/tjdk/tencentkona21-ts4:21.0.9
-ENV SERVICE_PATH=/app/service
-WORKDIR ${SERVICE_PATH}
-COPY --from=builder /build/okayjam-web-core/target/*.jar ${SERVICE_PATH}/
-COPY ./service.sh ${SERVICE_PATH}/
-COPY ./docker-entrypoint.sh /usr/local/bin
-RUN chmod a+x /usr/local/bin/docker-entrypoint.sh
-ENTRYPOINT ["docker-entrypoint.sh"]
-EXPOSE 8080
-```
 
 ## API 文档
 

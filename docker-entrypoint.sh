@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
 # 拷贝配置文件
 #cp -f /data/conf/* ${SERVICE_PATH}/config/
 
-bash service.sh start
+sh service.sh start

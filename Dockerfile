@@ -14,6 +14,7 @@ COPY ./okayjam-web-core/target/okayjam-web-core-${SERVICE_VERSION}-SNAPSHOT.jar 
 
 COPY ./config ${SERVICE_PATH}/config/
 COPY ./service.sh ${SERVICE_PATH}/
+RUN chmod a+x ${SERVICE_PATH}/service.sh
 
 # net tool
 RUN apk add --no-cache procps iputils
