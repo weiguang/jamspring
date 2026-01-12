@@ -1,7 +1,9 @@
 package com.okayjam.web.controller;
 
+import com.okayjam.web.common.util.JsonUtil;
 import com.okayjam.web.lock.service.LockService;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +36,12 @@ public class TestController {
     @RequestMapping("/ping")
     public String ping(@RequestHeader Map<String, String> headers) {
         return "pong";
+    }
+
+    @RequestMapping("/test")
+    public Map test(@RequestHeader Map<String, String> headers) {
+        Map<String, Date> dateMap = Map.of("key", new Date());
+        return dateMap;
     }
 
 

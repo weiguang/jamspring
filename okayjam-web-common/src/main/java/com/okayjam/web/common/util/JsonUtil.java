@@ -1,13 +1,15 @@
 package com.okayjam.web.common.util;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
+import tools.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,26 +28,85 @@ public class JsonUtil {
 
     private static final Logger LOG = LoggerFactory.getLogger(JsonUtil.class);
 
-    private static final ObjectMapper mapper;
+    private static volatile ObjectMapper mapper;
 
-    private static final ObjectMapper mapperNonNull;
+    private static volatile ObjectMapper mapperNonNull;
+
+    /** 默认时区 */
+    private static volatile TimeZone defaultTimeZone = TimeZone.getDefault();
+
+    /** 默认日期格式 */
+    private static volatile String defaultDateFormat = "yyyy-MM-dd HH:mm:ss";
 
     static {
-        mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        // 设置时区为系统默认时区
-//        mapper.setTimeZone(TimeZone.getDefault());
-        //mapper.configure(DeserializationFeature.USE_LONG_FOR_INTS, true);
-        mapperNonNull = new ObjectMapper();
-        mapperNonNull.setSerializationInclusion(Include.NON_NULL);
-        // 设置时区为系统默认时区
-//        mapperNonNull.setTimeZone(TimeZone.getDefault());
+        initMappers(defaultTimeZone, defaultDateFormat);
     }
 
-    public static void chargeTimeZone(TimeZone timeZone) {
-        mapper.setTimeZone(timeZone);
-        mapperNonNull.setTimeZone(timeZone);
-        LOG.info("JsonUtil new time zone: {}", timeZone.getID());
+    /**
+     * 初始化 ObjectMapper
+     * @param timeZone 时区
+     * @param dateFormat 日期格式
+     */
+    private static void initMappers(TimeZone timeZone, String dateFormat) {
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+        sdf.setTimeZone(timeZone);
+        
+        // Jackson 3.x 使用 JsonMapper.builder() 构建
+        mapper = JsonMapper.builder()
+                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                .defaultTimeZone(timeZone)
+                .defaultDateFormat(sdf)
+                .build();
+        
+        SimpleDateFormat sdfNonNull = new SimpleDateFormat(dateFormat);
+        sdfNonNull.setTimeZone(timeZone);
+        
+        mapperNonNull = JsonMapper.builder()
+                .changeDefaultPropertyInclusion(v -> v.withValueInclusion(JsonInclude.Include.NON_NULL))
+                .defaultTimeZone(timeZone)
+                .defaultDateFormat(sdfNonNull)
+                .build();
+    }
+
+    /**
+     * 修改默认时区（会重新构建 ObjectMapper）
+     * @param timeZone 时区
+     */
+    public static synchronized void chargeTimeZone(TimeZone timeZone) {
+        LOG.info("JsonUtil change time zone: {}", timeZone.getID());
+        defaultTimeZone = timeZone;
+        // Jackson 3.x 中 ObjectMapper 是不可变的，需要重新构建
+        initMappers(timeZone, defaultDateFormat);
+    }
+
+    /**
+     * 修改默认日期格式（会重新构建 ObjectMapper）
+     * @param dateFormat 日期格式，如 "yyyy-MM-dd HH:mm:ss"
+     */
+    public static synchronized void changeDateFormat(String dateFormat) {
+        LOG.info("JsonUtil change date format: {}", dateFormat);
+        defaultDateFormat = dateFormat;
+        initMappers(defaultTimeZone, dateFormat);
+    }
+
+    /**
+     * 同时修改时区和日期格式（会重新构建 ObjectMapper）
+     * @param timeZone 时区
+     * @param dateFormat 日期格式
+     */
+    public static synchronized void configure(TimeZone timeZone, String dateFormat) {
+        LOG.info("JsonUtil configure: timeZone={}, dateFormat={}", timeZone.getID(), dateFormat);
+        defaultTimeZone = timeZone;
+        defaultDateFormat = dateFormat;
+        initMappers(timeZone, dateFormat);
+    }
+
+    /**
+     * 获取当前日期格式
+     * @return 日期格式字符串
+     */
+    public static String getDateFormat() {
+        return defaultDateFormat;
     }
 
 

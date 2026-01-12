@@ -1,10 +1,10 @@
 # JamSpring
 
-> 一个基于 Spring Boot 3.x 的企业级 Web 应用脚手架项目
+> 一个基于 Spring Boot 4.x 的企业级 Web 应用脚手架项目
 
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.8-brightgreen.svg)](https://spring.io/projects/spring-boot)
-[![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
-[![MyBatis](https://img.shields.io/badge/MyBatis-3.0.5-red.svg)](https://mybatis.org/mybatis-3/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.1-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![Java](https://img.shields.io/badge/Java-21-orange.svg)](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
+[![MyBatis](https://img.shields.io/badge/MyBatis-4.0.1-red.svg)](https://mybatis.org/mybatis-3/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## 📖 目录
@@ -48,16 +48,16 @@
 
 | 技术 | 版本 | 说明 |
 |------|------|------|
-| Spring Boot | 3.5.8 | 核心框架 |
-| Java | 17 | 开发语言 |
+| Spring Boot | 4.0.1 | 核心框架 |
+| Java | 21 | 开发语言 |
 | Maven | 3.6+ | 项目管理工具 |
 
 ### 数据访问层
 
 | 技术 | 版本 | 说明 |
 |------|------|------|
-| MyBatis | 3.0.5 | ORM 框架 |
-| MyBatis Spring Boot Starter | 3.0.5 | MyBatis 自动配置 |
+| MyBatis | 4.0.1 | ORM 框架 |
+| MyBatis Spring Boot Starter | 4.0.1 | MyBatis 自动配置 |
 | PageHelper | 2.1.1 | 分页插件 |
 | HikariCP | - | 数据库连接池（Spring Boot 默认） |
 
@@ -65,7 +65,7 @@
 
 | 数据库 | 版本 | 说明 |
 |--------|------|------|
-| MySQL | 8.0.33 | 生产环境推荐 |
+| MySQL | 8.4.0 | 生产环境推荐 |
 | SQLite | 3.x | 开发测试环境 |
 
 ### 其他组件
@@ -74,7 +74,7 @@
 |------|------|------|
 | SpringDoc OpenAPI | 2.8.14 | API 文档生成 |
 | Logback | - | 日志框架 |
-| Logstash Logback Encoder | 7.4 | JSON 日志编码器 |
+| Logstash Logback Encoder | 9.0 | JSON 日志编码器 |
 | OkHttp | 4.12.0 | HTTP 客户端 |
 | Caffeine | - | 本地缓存 |
 | Lombok | - | 代码简化工具 |
@@ -86,7 +86,7 @@
 
 | 环境 | 版本要求 | 说明 |
 |------|----------|------|
-| **JDK** | 17 或更高版本 | 必须，Spring Boot 3.x 要求 |
+| **JDK** | 21 或更高版本 | 必须，Spring Boot 4.x 要求 |
 | **Maven** | 3.6+ | 必须，用于项目构建 |
 | **数据库** | MySQL 8.0+ 或 SQLite 3.x | 必须，至少配置一种 |
 | **IDE** | IntelliJ IDEA / Eclipse | 推荐，支持 Spring Boot 开发 |
@@ -417,7 +417,7 @@ public class TestController {
 
 ### 5. 虚拟线程支持（Virtual Threads）
 
-Spring Boot 3.x 支持 Java 21 的虚拟线程特性，可显著提升高并发场景下的性能表现。
+Spring Boot 4.0.1 支持 Java 21 的虚拟线程特性，可显著提升高并发场景下的性能表现。
 
 **启用配置：**
 
@@ -881,7 +881,7 @@ kill -9 <进程ID>
 
 - [Spring Boot 最佳实践](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.best-practices)
 - [RESTful API 设计指南](https://restfulapi.net/)
-- [Java 17 新特性](https://www.oracle.com/java/technologies/javase/17-relnote-issues.html)
+- [Java 21 新特性](https://www.oracle.com/java/technologies/javase/21-relnote-issues.html)
 
 ## 许可证
 
@@ -890,8 +890,8 @@ kill -9 <进程ID>
 ## 版本信息
 
 - **当前版本**：1.0.0-SNAPSHOT
-- **Spring Boot 版本**：3.5.8
-- **Java 版本**：17
+- **Spring Boot 版本**：4.0.1
+- **Java 版本**：21
 
 ## 贡献指南
 

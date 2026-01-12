@@ -1,11 +1,12 @@
 server:
   port: 8080
   shutdown: graceful
-  # 优化 JSP TLD 扫描，跳过不包含 TLD 的 JAR 文件
+  # Optimize JSP TLD scanning, skip JAR files without TLD
   tomcat:
     additional-tld-skip-patterns: '*.jar'
 
 spring:
+  # Enable virtual thread
   threads:
     virtual:
       enabled: true
@@ -13,6 +14,15 @@ spring:
     active: @package.environment@
   application:
     name: jamWeb
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  jackson:
+    date-format: ${app.date-format}
+    time-zone: ${app.timezone}
+    deserialization:
+      fail-on-unknown-properties: false
   devtools:
     restart:
       enabled: true
@@ -20,24 +30,20 @@ spring:
       quiet-period: 400
     livereload:
       enabled: true
-  mvc:
-    view:
-      prefix: /WEB-INF/views/
-      suffix: .jsp
 
   datasource:
     hikari:
       max-lifetime: 1800000
       maximum-pool-size: 20
       minimum-idle: 5
-      # 连接超时时间（默认30秒）
+      # Connection timeout (default 30 seconds)
       connection-timeout: 30000
-      # 空闲连接超时时间（10分钟），超过此时间的空闲连接会被释放
+      # Idle connection timeout (10 minutes), idle connections exceeding this time will be released
       idle-timeout: 600000
-      # 连接保活时间，设置为比max-lifetime稍短，建议为max-lifetime的90%
-      # 添加连接池预热配置
+      # Connection keep-alive time, set slightly shorter than max-lifetime, recommended 90% of max-lifetime
+      # Connection pool warm-up configuration
       initialization-fail-timeout: 0
-      # 连接验证优化
+      # Connection validation optimization
       connection-test-query: SELECT 1
 
     #    driver-class-name: com.mysql.cj.jdbc.Driver
@@ -62,7 +68,7 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
-  # 启用虚拟线程支持
+  # Enable virtual thread support
   autoRuntimeDialect: true
 
 springdoc:
@@ -78,8 +84,13 @@ http:
     max-per-route: 50
     max-total: 200
 
-# 节假日 API 配置
+# Application timezone configuration
+app:
+  timezone: Asia/Shanghai  # Options: UTC, Asia/Shanghai, America/New_York, etc.
+  date-format: yyyy-MM-dd HH:mm:ss  # Date format, default: yyyy-MM-dd HH:mm:ss
+
+# Holiday API configuration
 holiday:
   api:
-    # 节假日 API 基础地址（使用 timor.tech 免费 API）
+    # Holiday API base URL (using timor.tech free API)
     base-url: http://timor.tech/api/holiday
