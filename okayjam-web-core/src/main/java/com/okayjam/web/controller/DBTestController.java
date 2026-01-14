@@ -89,10 +89,12 @@ public class DBTestController {
      * @return JSON 字符串
      */
     @RequestMapping("insert")
-    public Integer insert() {
+    public Long insert() {
         TbTest tbTest = new TbTest();
-        tbTest.setValue("date");
-        tbTest.setKey(DateUtil.formatDate(LocalDateTime.now()));
+        tbTest.setKey("date");
+        tbTest.setValue(DateUtil.formatDate(LocalDateTime.now()));
+        tbTest.setAmt(1.0);
+        tbTest.setStatus((short) 1);
         service.insert(tbTest);
         return tbTest.getId();
     }

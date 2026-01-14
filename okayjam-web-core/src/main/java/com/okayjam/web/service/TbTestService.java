@@ -1,9 +1,10 @@
 package com.okayjam.web.service;
 
-import com.okayjam.web.dao.TbTestMapper;
+import com.okayjam.web.dao.TbTestDao;
 import com.okayjam.web.entity.TbTest;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,26 +15,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class TbTestService {
 
-    @Autowired
-    private TbTestMapper dao;
+    @Resource
+    private TbTestDao tbTestDao;
 
     public boolean insert(TbTest model) {
-        return dao.insert(model) > 0;
+        return tbTestDao.insert(model) > 0;
     }
 
-    public TbTest select(int id) {
-        return dao.selectByPrimaryKey(id);
+    public TbTest select(Long id) {
+        return tbTestDao.queryById(id);
     }
 
     public List<TbTest> selectAll() {
-        return dao.selectAll();
+        return tbTestDao.queryAll(new TbTest());
     }
 
     public boolean updateValue(TbTest model) {
-        return dao.updateByPrimaryKey(model) > 0;
+        return tbTestDao.update(model) > 0;
     }
 
-    public boolean delete(Integer id) {
-        return dao.deleteByPrimaryKey(id) > 0;
+    public boolean delete(Long id) {
+        return tbTestDao.deleteById(id) > 0;
     }
 }
