@@ -46,15 +46,15 @@ spring:
       # Connection validation optimization
       connection-test-query: SELECT 1
 
-    #    driver-class-name: com.mysql.cj.jdbc.Driver
-    #    url: jdbc:mysql://xxx.com:3307/remotedb?useUnicode=true&characterEncoding=UTF-8&useSSL=false&characterSetResults=UTF-8
-    #    username:
-    #    password:
-
-    driver-class-name: org.sqlite.JDBC
-    url: jdbc:sqlite:D:\UGit\java\jamspring\jam.db
-    username:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://9.135.xx.xx:3306/rms_controller?useUnicode=true&characterEncoding=UTF-8&useSSL=false&characterSetResults=UTF-8
+    username: jam
     password:
+
+#    driver-class-name: org.sqlite.JDBC
+#    url: jdbc:sqlite:/root/idea_remote_code/jamspring/jam.db
+#    username:
+#    password:
 
 
 mybatis:

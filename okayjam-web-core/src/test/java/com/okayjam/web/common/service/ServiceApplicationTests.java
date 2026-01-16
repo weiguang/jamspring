@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ServiceApplicationTests {
 
-    @Resource("dbLockService")
+    @Resource
     LockService lockService;
 
     @Test
