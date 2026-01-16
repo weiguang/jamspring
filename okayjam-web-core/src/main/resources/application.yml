@@ -1,9 +1,6 @@
 server:
   port: 8080
   shutdown: graceful
-  # Optimize JSP TLD scanning, skip JAR files without TLD
-  tomcat:
-    additional-tld-skip-patterns: '*.jar'
 
 spring:
   # Enable virtual thread
@@ -14,10 +11,6 @@ spring:
     active: @package.environment@
   application:
     name: jamWeb
-  mvc:
-    view:
-      prefix: /WEB-INF/views/
-      suffix: .jsp
   jackson:
     date-format: ${app.date-format}
     time-zone: ${app.timezone}
