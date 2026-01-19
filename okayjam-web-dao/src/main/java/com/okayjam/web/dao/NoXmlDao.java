@@ -11,7 +11,7 @@ import java.util.List;
  * @create: 2018/08/08 14:42
  **/
 @Mapper
-public interface NoXmlMapper {
+public interface NoXmlDao {
 
     // 插入 并查询id 赋给传入的对象
     @Insert("INSERT INTO tb_test(key, value) VALUES(#{key}, #{value})")

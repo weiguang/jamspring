@@ -21,9 +21,8 @@
 
     <modules>
         <module>okayjam-web-common</module>
-        <module>okayjam-web-core</module>
-        <module>distributed-lock</module>
         <module>okayjam-web-dao</module>
+        <module>okayjam-web-core</module>
     </modules>
 
     <properties>
@@ -38,10 +37,24 @@
     <!-- dependencyManagement 配置已简化，直接使用父 POM 的版本管理 -->
 
     <dependencies>
+
+        <!-- 显式引入日志框架，确保 SLF4J + Logback 被正确加载（Native Image 需要） -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
+
+
         <!-- 自动导入-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <exclusions>
+                <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
             <scope>test</scope>
         </dependency>
         <!-- 自动导入 结束-->
@@ -130,6 +143,27 @@
             </resource>
         </resources>
         <plugins>
+            <!-- Maven 编译器插件 - 配置 Lombok 注解处理器 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <!-- Spring Boot 配置处理器 -->
+                        <path>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-configuration-processor</artifactId>
+                            <version>${spring.boot.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

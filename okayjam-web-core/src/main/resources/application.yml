@@ -42,7 +42,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://9.135.xx.xx:3306/rms_controller?useUnicode=true&characterEncoding=UTF-8&useSSL=false&characterSetResults=UTF-8
     username: jam
-    password:
+    password: 
 
 #    driver-class-name: org.sqlite.JDBC
 #    url: jdbc:sqlite:/root/idea_remote_code/jamspring/jam.db
@@ -55,6 +55,8 @@ mybatis:
   mapper-locations: classpath*:mapper/*Mapper.xml
   configuration:
     map-underscore-to-camel-case: true
+    # 显式指定日志实现，解决 Native Image 下日志初始化问题
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
 
 pagehelper:
   helperDialect: mysql

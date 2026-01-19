@@ -2,17 +2,22 @@ package com.okayjam.web.configuration;
 
 import java.util.Map;
 import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
+
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskDecorator;
+import org.springframework.core.task.support.TaskExecutorAdapter;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 /**
  * 异步配置类
  * 配置能够传递 MDC 上下文的线程池，解决异步调用中 TRACE_ID 丢失的问题
+ * 支持根据配置自动选择虚拟线程或传统线程池
  *
  * @author JamChen
  * @date 2026/01/06
@@ -23,13 +28,37 @@ public class AsyncConfig {
 
     public static final int AVAILABLE_PROCESSORS = Runtime.getRuntime().availableProcessors();
 
+    @Value("${spring.threads.virtual.enabled:false}")
+    private boolean virtualThreadsEnabled;
+
     /**
      * 配置异步任务执行器
-     * 该执行器能够传递 MDC 上下文到异步线程
+     * 根据配置自动选择虚拟线程执行器或传统线程池
      */
     @Bean(name = "taskExecutor")
     public Executor taskExecutor() {
+        if (virtualThreadsEnabled) {
+            return createVirtualThreadExecutor();
+        }
+        return createThreadPoolExecutor();
+    }
 
+    /**
+     * 创建虚拟线程执行器
+     */
+    private Executor createVirtualThreadExecutor() {
+        TaskExecutorAdapter executor = new TaskExecutorAdapter(
+                Executors.newVirtualThreadPerTaskExecutor()
+        );
+        // 设置任务装饰器，用于传递 MDC 上下文
+        executor.setTaskDecorator(new MdcTaskDecorator());
+        return executor;
+    }
+
+    /**
+     * 创建传统线程池执行器
+     */
+    private Executor createThreadPoolExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 
         // 核心线程数

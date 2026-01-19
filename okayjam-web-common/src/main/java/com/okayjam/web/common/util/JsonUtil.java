@@ -1,22 +1,19 @@
 package com.okayjam.web.common.util;
 
-import tools.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.DeserializationFeature;
 import tools.jackson.databind.JavaType;
 import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.node.ArrayNode;
 import tools.jackson.databind.node.ObjectNode;
-import tools.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.*;
 
 /**
  * json工具类
@@ -32,10 +29,14 @@ public class JsonUtil {
 
     private static volatile ObjectMapper mapperNonNull;
 
-    /** 默认时区 */
+    /**
+     * 默认时区
+     */
     private static volatile TimeZone defaultTimeZone = TimeZone.getDefault();
 
-    /** 默认日期格式 */
+    /**
+     * 默认日期格式
+     */
     private static volatile String defaultDateFormat = "yyyy-MM-dd HH:mm:ss";
 
     static {
@@ -44,23 +45,24 @@ public class JsonUtil {
 
     /**
      * 初始化 ObjectMapper
-     * @param timeZone 时区
+     *
+     * @param timeZone   时区
      * @param dateFormat 日期格式
      */
     private static void initMappers(TimeZone timeZone, String dateFormat) {
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
         sdf.setTimeZone(timeZone);
-        
+
         // Jackson 3.x 使用 JsonMapper.builder() 构建
         mapper = JsonMapper.builder()
                 .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
                 .defaultTimeZone(timeZone)
                 .defaultDateFormat(sdf)
                 .build();
-        
+
         SimpleDateFormat sdfNonNull = new SimpleDateFormat(dateFormat);
         sdfNonNull.setTimeZone(timeZone);
-        
+
         mapperNonNull = JsonMapper.builder()
                 .changeDefaultPropertyInclusion(v -> v.withValueInclusion(JsonInclude.Include.NON_NULL))
                 .defaultTimeZone(timeZone)
@@ -70,6 +72,7 @@ public class JsonUtil {
 
     /**
      * 修改默认时区（会重新构建 ObjectMapper）
+     *
      * @param timeZone 时区
      */
     public static synchronized void chargeTimeZone(TimeZone timeZone) {
@@ -81,6 +84,7 @@ public class JsonUtil {
 
     /**
      * 修改默认日期格式（会重新构建 ObjectMapper）
+     *
      * @param dateFormat 日期格式，如 "yyyy-MM-dd HH:mm:ss"
      */
     public static synchronized void changeDateFormat(String dateFormat) {
@@ -91,7 +95,8 @@ public class JsonUtil {
 
     /**
      * 同时修改时区和日期格式（会重新构建 ObjectMapper）
-     * @param timeZone 时区
+     *
+     * @param timeZone   时区
      * @param dateFormat 日期格式
      */
     public static synchronized void configure(TimeZone timeZone, String dateFormat) {
@@ -103,6 +108,7 @@ public class JsonUtil {
 
     /**
      * 获取当前日期格式
+     *
      * @return 日期格式字符串
      */
     public static String getDateFormat() {
@@ -152,7 +158,7 @@ public class JsonUtil {
     /**
      * 读取json转成对象
      *
-     * @param json json
+     * @param json  json
      * @param clazz clazz
      * @return T
      * @throws IOException IOException
@@ -164,7 +170,7 @@ public class JsonUtil {
     /**
      * 读取json转成对象, 具有多层嵌套的数据，如 {@code ResponseDto<List<Object>> }
      *
-     * @param json json
+     * @param json  json
      * @param clazz clazz
      * @return T
      * @throws IOException IOException
@@ -186,7 +192,7 @@ public class JsonUtil {
     /**
      * 基于TypeReference转换
      *
-     * @param json json
+     * @param json         json
      * @param valueTypeRef valueTypeRef
      * @return T
      * @throws IOException IOException
@@ -198,7 +204,7 @@ public class JsonUtil {
     /**
      * 获取List集合
      *
-     * @param json json
+     * @param json  json
      * @param clazz clazz
      * @return T
      * @throws IOException IOException
@@ -211,11 +217,11 @@ public class JsonUtil {
     /**
      * 获取 Map数据
      *
-     * @param json json
-     * @param keyClass keyClass
+     * @param json       json
+     * @param keyClass   keyClass
      * @param valueClass valueClass
-     * @param <T> T
-     * @param <K> K
+     * @param <T>        T
+     * @param <K>        K
      * @return Map
      * @throws IOException IOException
      */

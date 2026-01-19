@@ -1,18 +1,13 @@
 package com.okayjam.web.common.util;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TimeZone;
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
+import java.util.*;
 
 /**
  * com.tencent.teg.riskcontrol.rms.workorder.common.util
@@ -60,7 +55,7 @@ public class HmacAuth {
      *
      * @return 认证的header
      * @throws NoSuchAlgorithmException 加密算法不支持
-     * @throws InvalidKeyException 加密密钥异常
+     * @throws InvalidKeyException      加密密钥异常
      */
     public Map<String, String> getAuthHeaders() throws NoSuchAlgorithmException, InvalidKeyException {
         // 生成body的sha256加密串

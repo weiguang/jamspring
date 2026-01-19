@@ -2,8 +2,9 @@ package com.okayjam.web.common.dto;
 
 
 import com.okayjam.web.common.util.HttpUtil;
-import java.io.Serializable;
 import org.slf4j.MDC;
+
+import java.io.Serializable;
 
 /**
  * ResponseDto 统一返回格式

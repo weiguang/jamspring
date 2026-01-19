@@ -1,7 +1,5 @@
 package com.okayjam.web.common.configuration.http;
 
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.config.ConnectionConfig;
@@ -17,6 +15,9 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  * Generic HTTP client configuration properties and factory methods
@@ -148,7 +149,7 @@ public class HttpClientFactory {
      * - Text/plain JSON converter support
      * - Logging interceptor
      *
-     * @param baseUrl the base URL for the RestClient
+     * @param baseUrl   the base URL for the RestClient
      * @param logPrefix the log prefix for HttpLoggingInterceptor
      * @return RestClient.Builder with common configurations applied
      */

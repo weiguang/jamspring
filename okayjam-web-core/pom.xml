@@ -34,18 +34,11 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.okayjam.web</groupId>
-            <artifactId>distributed-lock</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-
         <!-- 自动导入-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
 
         <dependency>
             <groupId>org.springdoc</groupId>
@@ -57,11 +50,20 @@
     </dependencies>
 
     <build>
-
         <plugins>
+            <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <configuration>
+                    <buildArgs combine.children="append">
+                        <buildArg>--enable-url-protocols=http</buildArg> <!-- ★★★Need to specify★★★ -->
+                    </buildArgs>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- AOT 处理通过命令行手动触发: mvn spring-boot:process-aot -->
             </plugin>
         </plugins>
     </build>

@@ -1,5 +1,13 @@
 package com.okayjam.web.common.util;
 
+import okhttp3.*;
+import okhttp3.FormBody.Builder;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
+
+import javax.net.ssl.X509TrustManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -10,22 +18,6 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import javax.net.ssl.X509TrustManager;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.ConnectionPool;
-import okhttp3.FormBody.Builder;
-import okhttp3.Headers;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
 
 /**
  * HttpUtil
@@ -75,15 +67,15 @@ public class HttpUtil {
     /**
      * 请求连接
      *
-     * @param url 请求地址
+     * @param url           请求地址
      * @param requestMethod 请求方法
-     * @param headerMap 请求头
-     * @param params 请求参数
-     * @param isJson 是否是json请求
+     * @param headerMap     请求头
+     * @param params        请求参数
+     * @param isJson        是否是json请求
      * @return Call
      */
     public static Call getConnection(String url, String requestMethod, Map<String, String> headerMap,
-            Map<String, Object> params, Boolean isJson) {
+                                     Map<String, Object> params, Boolean isJson) {
         Request.Builder reqBuilder = new Request.Builder();
         if (headerMap == null) {
             headerMap = new HashMap<>();
@@ -133,9 +125,9 @@ public class HttpUtil {
     /**
      * 生成CONNECTION
      *
-     * @param url 网址
+     * @param url       网址
      * @param headerMap 请求头
-     * @param json json
+     * @param json      json
      * @return 返回call
      */
     public static Call getConnection(String url, String requestMethod, Map<String, String> headerMap, String json) {
@@ -173,7 +165,7 @@ public class HttpUtil {
     /**
      * 基础请求
      *
-     * @param url url
+     * @param url       url
      * @param headerMap 请求头
      * @return 返回response
      * @throws IOException 异常
@@ -188,16 +180,16 @@ public class HttpUtil {
     /**
      * 基础请求
      *
-     * @param url url
-     * @param method 请求方法
+     * @param url       url
+     * @param method    请求方法
      * @param headerMap 请求头
-     * @param params 参数
-     * @param isJson 是否是json
+     * @param params    参数
+     * @param isJson    是否是json
      * @return 返回response
      * @throws IOException 异常
      */
     public static String request(String url, String method, Map<String, String> headerMap, Map<String, Object> params,
-            Boolean isJson) throws IOException {
+                                 Boolean isJson) throws IOException {
         Call conn = getConnection(url, method, headerMap, params, isJson);
         log.info("http request:{}, body:{}", conn.request(), params);
         return getResponse(conn);
@@ -222,15 +214,15 @@ public class HttpUtil {
     /**
      * uploadFile
      *
-     * @param url 请求地址
+     * @param url       请求地址
      * @param headerMap 请求头
-     * @param params 请求参数
-     * @param filePath 文件路径
+     * @param params    请求参数
+     * @param filePath  文件路径
      * @return Response
      * @throws IOException 异常
      */
     public static String uploadFile(String url, Map<String, String> headerMap, Map<String, Object> params,
-            String filePath) throws IOException {
+                                    String filePath) throws IOException {
         File file = new File(filePath);
         if (params == null) {
             params = new HashMap<>();
@@ -261,7 +253,7 @@ public class HttpUtil {
     /**
      * get请求
      *
-     * @param url 地址
+     * @param url       地址
      * @param headerMap 头函数
      * @return 返回Response
      * @throws IOException 异常
@@ -273,9 +265,9 @@ public class HttpUtil {
     /**
      * post
      *
-     * @param url 地址
+     * @param url       地址
      * @param headerMap 请求头
-     * @param params 参数
+     * @param params    参数
      * @return 返回
      * @throws IOException 异常
      */
@@ -287,9 +279,9 @@ public class HttpUtil {
     /**
      * post
      *
-     * @param url 地址
+     * @param url       地址
      * @param headerMap 请求头
-     * @param json 参数
+     * @param json      参数
      * @return 返回
      * @throws IOException 异常
      */
@@ -300,9 +292,9 @@ public class HttpUtil {
     /**
      * postForm
      *
-     * @param url 地址
+     * @param url       地址
      * @param headerMap 请求头
-     * @param params 参数
+     * @param params    参数
      * @return 返回
      * @throws IOException 异常
      */
@@ -316,14 +308,14 @@ public class HttpUtil {
     /**
      * requestAsync
      *
-     * @param url 请求地址
-     * @param method 请求方法
+     * @param url       请求地址
+     * @param method    请求方法
      * @param headerMap 请求头
-     * @param params 请求参数
-     * @param isJson 是否是json
+     * @param params    请求参数
+     * @param isJson    是否是json
      */
     public static void requestAsync(String url, String method, Map<String, String> headerMap,
-            Map<String, Object> params, Boolean isJson) {
+                                    Map<String, Object> params, Boolean isJson) {
         Call conn = getConnection(url, method, headerMap, params, isJson);
         conn.enqueue(new Callback() {
             @Override

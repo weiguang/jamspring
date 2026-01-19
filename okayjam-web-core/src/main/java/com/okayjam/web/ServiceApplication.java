@@ -1,11 +1,13 @@
 package com.okayjam.web;
 
+import org.apache.ibatis.logging.LogFactory;
 import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackages = {"com.okayjam.web.*"})
-@MapperScan({"com.okayjam.web.dao", "com.okayjam.web.lock.dao"})
+@MapperScan(basePackages = {"com.okayjam.web.dao"}, sqlSessionTemplateRef = "sqlSessionTemplate")
 public class ServiceApplication {
 
     public static void main(String[] args) {

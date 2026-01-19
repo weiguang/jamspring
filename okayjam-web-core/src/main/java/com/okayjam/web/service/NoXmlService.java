@@ -1,9 +1,13 @@
 package com.okayjam.web.service;
 
-import com.okayjam.web.dao.NoXmlMapper;
+import com.okayjam.web.dao.NoXmlDao;
 import com.okayjam.web.entity.Demo;
+
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,33 +15,41 @@ import org.springframework.stereotype.Service;
  * @author: Chen wei guang
  * @create: 2018/08/08 14:43
  **/
+@Slf4j
 @Service
 public class NoXmlService {
 
-    private final NoXmlMapper dao;
-
-    @Autowired
-    public NoXmlService(NoXmlMapper dao) {
-        this.dao = dao;
-    }
+    @Resource
+    private NoXmlDao noXmlDao;
 
     public boolean insert(Demo model) {
-        return dao.insert(model) > 0;
+        return noXmlDao.insert(model) > 0;
     }
 
     public Demo select(int id) {
-        return dao.select(id);
+        return noXmlDao.select(id);
     }
 
     public List<Demo> selectAll() {
-        return dao.selectAll();
+        return noXmlDao.selectAll();
     }
 
     public boolean updateValue(Demo model) {
-        return dao.updateValue(model) > 0;
+        return noXmlDao.updateValue(model) > 0;
     }
 
     public boolean delete(Integer id) {
-        return dao.delete(id) > 0;
+        return noXmlDao.delete(id) > 0;
+    }
+
+    @Async
+    public void testAsync() {
+        log.info("test start");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        log.info("test end");
     }
 }

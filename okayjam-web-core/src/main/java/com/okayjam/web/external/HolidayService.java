@@ -3,6 +3,7 @@ package com.okayjam.web.external;
 import com.okayjam.web.external.dto.HolidayBatchResponse;
 import com.okayjam.web.external.dto.HolidayResponse;
 import com.okayjam.web.external.dto.NextHolidayResponse;
+
 import java.util.List;
 
 /**
@@ -31,7 +32,7 @@ public interface HolidayService {
     /**
      * 查询指定年月的节假日信息
      *
-     * @param year 年份（如：2026）
+     * @param year  年份（如：2026）
      * @param month 月份（如：02）
      * @return 节假日信息
      */
@@ -40,7 +41,7 @@ public interface HolidayService {
     /**
      * 批量查询指定日期的节假日信息
      *
-     * @param dates 日期列表（格式：yyyy-MM-dd，最多50个）
+     * @param dates       日期列表（格式：yyyy-MM-dd，最多50个）
      * @param includeType 是否返回日期类型信息
      * @return 节假日信息
      */

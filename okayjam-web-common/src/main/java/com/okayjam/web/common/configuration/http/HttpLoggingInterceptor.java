@@ -1,11 +1,6 @@
 package com.okayjam.web.common.configuration.http;
 
 import com.okayjam.web.common.util.HttpUtil;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.MDC;
@@ -17,12 +12,18 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.util.StreamUtils;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
+
 /**
  * Generic HTTP request/response logging interceptor
  * Used for logging RestClient requests and responses
  *
  * @author JamChen jamchen@tencent.com
- *         2025/12/18
+ * 2025/12/18
  **/
 @Slf4j
 public class HttpLoggingInterceptor implements ClientHttpRequestInterceptor {
@@ -53,7 +54,7 @@ public class HttpLoggingInterceptor implements ClientHttpRequestInterceptor {
     @NotNull
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body,
-            ClientHttpRequestExecution execution) throws IOException {
+                                        ClientHttpRequestExecution execution) throws IOException {
 
         // Add Request ID header
         addRequestId(request);
