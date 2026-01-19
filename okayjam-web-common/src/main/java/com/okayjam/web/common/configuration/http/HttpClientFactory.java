@@ -12,7 +12,7 @@ import org.apache.hc.core5.util.Timeout;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
@@ -81,10 +81,10 @@ public class HttpClientFactory {
      * Create a Jackson message converter that supports both application/json and text/plain content types.
      * This is useful when the server returns JSON data with text/plain content type.
      *
-     * @return MappingJackson2HttpMessageConverter configured with multiple media types
+     * @return JacksonJsonHttpMessageConverter configured with multiple media types
      */
-    public static MappingJackson2HttpMessageConverter createTextPlainJsonConverter() {
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+    public static JacksonJsonHttpMessageConverter createTextPlainJsonConverter() {
+        JacksonJsonHttpMessageConverter converter = new JacksonJsonHttpMessageConverter();
         converter.setSupportedMediaTypes(List.of(
                 MediaType.APPLICATION_JSON,
                 MediaType.TEXT_PLAIN,
@@ -158,7 +158,7 @@ public class HttpClientFactory {
                 .baseUrl(baseUrl)
                 .requestFactory(createRequestFactory())
                 // Add message converter that supports text/plain JSON responses
-                .messageConverters(converters -> converters.add(0, createTextPlainJsonConverter()))
+                .configureMessageConverters(builder -> builder.addCustomConverter(createTextPlainJsonConverter()))
                 // Add logging interceptor (should be last to log all headers including auth)
                 .requestInterceptor(new HttpLoggingInterceptor(logPrefix));
     }

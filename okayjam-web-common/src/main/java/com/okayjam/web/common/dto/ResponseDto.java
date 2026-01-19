@@ -2,6 +2,7 @@ package com.okayjam.web.common.dto;
 
 
 import com.okayjam.web.common.util.HttpUtil;
+import lombok.Data;
 import org.slf4j.MDC;
 
 import java.io.Serializable;
@@ -10,8 +11,9 @@ import java.io.Serializable;
  * ResponseDto 统一返回格式
  *
  * @author Jam Chen
- * @date 2021/03/11 18:14
+ * 2021/03/11 18:14
  **/
+@Data
 public class ResponseDto<T> implements Serializable {
 
     private String msg;
@@ -23,16 +25,16 @@ public class ResponseDto<T> implements Serializable {
     /**
      * 统一返回格式
      *
-     * @param obj 返回数据
-     * @return obj
+     * @param data 返回数据
+     * @return ResponseDto
      */
-    public static ResponseDto<?> success(Object obj) {
-        return success(obj, null);
+    public static <T> ResponseDto<T> success(T data) {
+        return success(data, null);
     }
 
-    public static ResponseDto<?> success(Object obj, String msg) {
-        ResponseDto<?> responseDto = new ResponseDto<>();
-        responseDto.setData(obj);
+    public static <T> ResponseDto<T> success(T data, String msg) {
+        ResponseDto<T> responseDto = new ResponseDto<>();
+        responseDto.setData(data);
         responseDto.setMsg(msg);
         responseDto.setCode(0);
         responseDto.setTraceId(MDC.get(HttpUtil.TRACE_ID));
@@ -47,8 +49,8 @@ public class ResponseDto<T> implements Serializable {
         return fail(code, msg, null);
     }
 
-    public static ResponseDto<?> fail(int code, String msg, Object data) {
-        ResponseDto<?> responseDto = new ResponseDto<String>();
+    public static <T> ResponseDto<T> fail(int code, String msg, T data) {
+        ResponseDto<T> responseDto = new ResponseDto<>();
         responseDto.setMsg(msg);
         responseDto.setCode(code);
         responseDto.setData(data);
@@ -57,35 +59,4 @@ public class ResponseDto<T> implements Serializable {
     }
 
 
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = (T) data;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getTraceId() {
-        return traceId;
-    }
-
-    public void setTraceId(String traceId) {
-        this.traceId = traceId;
-    }
 }

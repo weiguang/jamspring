@@ -11,6 +11,8 @@ import javax.net.ssl.X509TrustManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -357,10 +359,11 @@ public class HttpUtil {
      *
      * @param urlStr url
      * @return map
+     * @throws URISyntaxException 异常
      * @throws MalformedURLException 异常
      */
-    public static Map<String, String> urlParamToMap(String urlStr) throws MalformedURLException {
-        URL url1 = new URL(urlStr);
+    public static Map<String, String> urlParamToMap(String urlStr) throws URISyntaxException, MalformedURLException {
+        URL url1 = URI.create(urlStr).toURL();
         Map<String, String> mapRequest = new HashMap<>();
         String[] arrSplit;
         String query = url1.getQuery();
