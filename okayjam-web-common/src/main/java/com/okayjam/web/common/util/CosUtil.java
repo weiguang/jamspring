@@ -17,6 +17,8 @@ import com.qcloud.cos.region.Region;
 import com.qcloud.cos.transfer.TransferManager;
 import com.qcloud.cos.transfer.TransferManagerConfiguration;
 import com.qcloud.cos.transfer.Upload;
+import org.springframework.util.StringUtils;
+
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
@@ -27,7 +29,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import org.springframework.util.StringUtils;
 
 /**
  * rms-scheduler
@@ -68,7 +69,7 @@ public class CosUtil implements AutoCloseable {
     /**
      * 创建 COSClient 实例
      *
-     * @param secretId id
+     * @param secretId  id
      * @param secretKey key
      * @param cosRegion region
      * @return COSClient 实例
@@ -80,10 +81,10 @@ public class CosUtil implements AutoCloseable {
     /**
      * 创建 COSClient 实例
      *
-     * @param secretId id
+     * @param secretId  id
      * @param secretKey key
      * @param cosRegion region
-     * @param endpoint endpoint
+     * @param endpoint  endpoint
      * @return COSClient 实例
      */
     public COSClient cosClient(String secretId, String secretKey, String cosRegion, String endpoint) {
@@ -140,8 +141,8 @@ public class CosUtil implements AutoCloseable {
     /**
      * 上传文件
      *
-     * @param bucketName 桶名称
-     * @param key key
+     * @param bucketName    桶名称
+     * @param key           key
      * @param localFilePath 本地路径
      * @return 上传后的ETag
      */
@@ -165,10 +166,10 @@ public class CosUtil implements AutoCloseable {
     /**
      * 上传文件
      *
-     * @param bucketName 桶名称
-     * @param key key
+     * @param bucketName  桶名称
+     * @param key         key
      * @param inputStream 输入流
-     * @param size 文件大小
+     * @param size        文件大小
      * @return 上传后的ETag
      */
     public String upload(String bucketName, String key, InputStream inputStream, long size) {
@@ -196,8 +197,8 @@ public class CosUtil implements AutoCloseable {
     /**
      * 下载文件
      *
-     * @param bucketName 桶名称
-     * @param key key
+     * @param bucketName    桶名称
+     * @param key           key
      * @param localFilePath 本地目录
      * @return 文件本地路径
      */
@@ -217,7 +218,7 @@ public class CosUtil implements AutoCloseable {
      * 生成预授权URL
      *
      * @param bucketName 桶名称
-     * @param key key
+     * @param key        key
      * @return URL
      */
     public String genPresignedURL(String bucketName, String key) {
@@ -227,15 +228,15 @@ public class CosUtil implements AutoCloseable {
     /**
      * 生成预授权URL
      *
-     * @param bucketName 桶名称
-     * @param key key
+     * @param bucketName     桶名称
+     * @param key            key
      * @param expirationDate 过期时间
-     * @param headers 请求头
-     * @param params 参数
+     * @param headers        请求头
+     * @param params         参数
      * @return URL
      */
     public String genPresignedURL(String bucketName, String key, Date expirationDate, Map<String, String> headers,
-            Map<String, String> params) {
+                                  Map<String, String> params) {
         // 请求的 HTTP 方法，上传请求用 PUT，下载请求用 GET，删除请求用 DELETE
         HttpMethodName method = HttpMethodName.GET;
         //过期时间设置30天后

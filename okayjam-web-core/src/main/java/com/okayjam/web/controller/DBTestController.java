@@ -11,15 +11,13 @@ import com.okayjam.web.req.TbTestQueryReq;
 import com.okayjam.web.service.NoXmlService;
 import com.okayjam.web.service.TbTestService;
 import jakarta.annotation.Resource;
+
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @description: ${description}
@@ -36,6 +34,15 @@ public class DBTestController {
 
     @Resource
     private NoXmlService noXmlService;
+
+
+    @RequestMapping("/test2")
+    public Map test2(@RequestHeader Map<String, String> headers) {
+        Map<String, Date> dateMap = Map.of("key", new Date());
+        noXmlService.testAsync();
+        return dateMap;
+    }
+
 
     /**
      * 接口测试
@@ -98,7 +105,6 @@ public class DBTestController {
         service.insert(tbTest);
         return tbTest.getId();
     }
-
 
 
     /**

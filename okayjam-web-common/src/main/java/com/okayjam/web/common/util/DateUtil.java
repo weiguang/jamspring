@@ -1,6 +1,8 @@
 package com.okayjam.web.common.util;
 
 
+import org.springframework.util.StringUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -11,7 +13,6 @@ import java.time.temporal.TemporalUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
-import org.springframework.util.StringUtils;
 
 /**
  * 时间工具类
@@ -128,7 +129,7 @@ public class DateUtil {
      * 计算两个时间差（年，月，星期，日，时，分，秒）
      *
      * @param startDate 开始时间
-     * @param endDate 结束时间
+     * @param endDate   结束时间
      * @return string
      */
     public static String calculateTimeDifference(Date startDate, Date endDate) {
@@ -145,7 +146,7 @@ public class DateUtil {
      * 计算两个时间差（年，月，星期，日，时，分，秒）
      *
      * @param fromDateTime 开始时间
-     * @param toDateTime 结束时间
+     * @param toDateTime   结束时间
      * @return string
      */
     public static String calculateTimeDifference(LocalDateTime fromDateTime, LocalDateTime toDateTime) {
@@ -182,7 +183,7 @@ public class DateUtil {
      * 计算两个时间差（年，月，星期，日，时，分，秒）
      *
      * @param fromDateTime 开始时间
-     * @param toDateTime 结束时间
+     * @param toDateTime   结束时间
      * @return string
      */
     public static String calculateTimeDifference2(LocalDateTime fromDateTime, LocalDateTime toDateTime) {
@@ -220,10 +221,9 @@ public class DateUtil {
     /**
      * 时间加减
      *
-     * @param date 时间
-     * @param delta 增量
-     * @param periodUnit
-     *         时间单位，Calendar.YEAR,Calendar.MONTH,Calendar.DATE,Calendar.HOUR,Calendar.MINUTE,Calendar.SECOND
+     * @param date       时间
+     * @param delta      增量
+     * @param periodUnit 时间单位，Calendar.YEAR,Calendar.MONTH,Calendar.DATE,Calendar.HOUR,Calendar.MINUTE,Calendar.SECOND
      * @return 新时间
      */
     public static Date plusTime(Date date, int delta, int periodUnit) {
@@ -237,9 +237,9 @@ public class DateUtil {
     /**
      * 时间加减
      *
-     * @param date 时间
+     * @param date  时间
      * @param delta 增量
-     * @param unit 时间单位(ChronoUnit中的常量)
+     * @param unit  时间单位(ChronoUnit中的常量)
      * @return 新时间
      */
     public static LocalDateTime plusTime(LocalDateTime date, long delta, TemporalUnit unit) {

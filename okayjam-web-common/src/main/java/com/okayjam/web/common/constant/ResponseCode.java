@@ -5,7 +5,7 @@ package com.okayjam.web.common.constant;
  * rms-controller
  *
  * @author JamChen
- *         2023/05/09 11:41
+ * 2023/05/09 11:41
  **/
 public enum ResponseCode {
     /**

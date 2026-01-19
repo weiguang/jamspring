@@ -2,7 +2,8 @@
 
 ## 📋 概述
 
-本模块提供了基于 `HttpClientFactory` 的节假日查询服务，使用 Spring RestClient 进行 HTTP 请求，调用 timor.tech 提供的免费节假日 API。
+本模块提供了基于 `HttpClientFactory` 的节假日查询服务，使用 Spring RestClient 进行 HTTP 请求，调用 timor.tech 提供的免费节假日
+API。
 
 ### ✨ 核心特性
 
@@ -332,9 +333,9 @@ public class TestController {
 系统通过 `TraceIdFilter` 和 `HttpLoggingInterceptor` 实现全链路日志追踪：
 
 1. **请求入口**：`TraceIdFilter` 拦截所有 HTTP 请求
-   - 从请求头中读取 `X-Request-UUID`
-   - 如果存在则使用，否则自动生成新的 UUID
-   - 将 TraceId 存入 MDC（Mapped Diagnostic Context）
+    - 从请求头中读取 `X-Request-UUID`
+    - 如果存在则使用，否则自动生成新的 UUID
+    - 将 TraceId 存入 MDC（Mapped Diagnostic Context）
 
 2. **日志记录**：所有日志自动包含 TraceId
    ```
@@ -342,9 +343,9 @@ public class TestController {
    ```
 
 3. **外部调用**：`HttpLoggingInterceptor` 自动传递 TraceId
-   - 从 MDC 中获取 TraceId
-   - 添加到外部 HTTP 请求的 `X-Request-UUID` 请求头
-   - 实现跨服务的链路追踪
+    - 从 MDC 中获取 TraceId
+    - 添加到外部 HTTP 请求的 `X-Request-UUID` 请求头
+    - 实现跨服务的链路追踪
 
 ### 使用方式
 

@@ -7,7 +7,9 @@ import com.okayjam.web.external.dto.NextHolidayResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -65,7 +67,7 @@ public class HolidayController {
     /**
      * 查询指定年月的节假日
      *
-     * @param year 年份
+     * @param year  年份
      * @param month 月份
      * @return 节假日信息
      */
@@ -83,7 +85,7 @@ public class HolidayController {
     /**
      * 批量查询指定日期的节假日
      *
-     * @param dates 日期列表（格式：yyyy-MM-dd）
+     * @param dates       日期列表（格式：yyyy-MM-dd）
      * @param includeType 是否返回日期类型信息
      * @return 节假日信息
      */

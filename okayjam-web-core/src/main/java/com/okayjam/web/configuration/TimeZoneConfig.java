@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.TimeZone;
+
 import org.springframework.core.annotation.Order;
 
 /**
@@ -38,14 +39,14 @@ public class TimeZoneConfig {
     @PostConstruct
     public void init() {
         TimeZone timeZone = TimeZone.getTimeZone(timezone);
-        
+
         // 设置 JVM 默认时区
         TimeZone.setDefault(timeZone);
-        
+
         // 同步设置 JsonUtil 的时区和日期格式
         JsonUtil.configure(timeZone, dateFormat);
-        
-        logger.info("Application configured: timezone={} ({}), dateFormat={}", 
+
+        logger.info("Application configured: timezone={} ({}), dateFormat={}",
                 timezone, timeZone.getDisplayName(), dateFormat);
     }
 

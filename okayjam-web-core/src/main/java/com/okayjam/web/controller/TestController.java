@@ -1,7 +1,7 @@
 package com.okayjam.web.controller;
 
 import com.okayjam.web.common.util.JsonUtil;
-import com.okayjam.web.lock.service.LockService;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,8 +11,11 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RequestMapping("api/test")
 @RestController
+@Slf4j
 public class TestController {
-
-    @Autowired
-    @Qualifier("dbLockService")
-    LockService lockService;
 
 
     //    @Operation(summary = "ping简单测试", description = "测试基本服务是否正常")
@@ -85,10 +85,10 @@ public class TestController {
     public Map<String, Object> slowRequest(@RequestParam(defaultValue = "500") int sleepMs) throws InterruptedException {
         Thread currentThread = Thread.currentThread();
         long start = System.currentTimeMillis();
-        
+
         // 模拟 I/O 阻塞
         Thread.sleep(sleepMs);
-        
+
         Map<String, Object> result = new HashMap<>();
         result.put("threadName", currentThread.getName());
         result.put("isVirtual", currentThread.isVirtual());
@@ -101,9 +101,9 @@ public class TestController {
     /**
      * 直接在代码中对比虚拟线程和平台线程性能
      * 访问: http://localhost:8080/api/test/compare?tasks=1000&sleepMs=100
-     * 
-     * @param tasks 任务数量（默认1000）
-     * @param sleepMs 每个任务睡眠时间（默认100ms）
+     *
+     * @param tasks    任务数量（默认1000）
+     * @param sleepMs  每个任务睡眠时间（默认100ms）
      * @param poolSize 平台线程池大小（默认200）
      */
     @GetMapping("/compare")
@@ -111,12 +111,12 @@ public class TestController {
             @RequestParam(defaultValue = "1000") int tasks,
             @RequestParam(defaultValue = "100") int sleepMs,
             @RequestParam(defaultValue = "200") int poolSize) throws InterruptedException {
-        
+
         Map<String, Object> result = new HashMap<>();
         result.put("taskCount", tasks);
         result.put("sleepMsPerTask", sleepMs);
         result.put("platformThreadPoolSize", poolSize);
-        
+
         // 任务定义：模拟 I/O 阻塞
         Runnable task = () -> {
             try {
@@ -130,7 +130,7 @@ public class TestController {
         AtomicInteger virtualMaxThreads = new AtomicInteger(0);
         long startVirtual = System.currentTimeMillis();
         CountDownLatch virtualLatch = new CountDownLatch(tasks);
-        
+
         try (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {
             for (int i = 0; i < tasks; i++) {
                 executor.submit(() -> {
@@ -151,7 +151,7 @@ public class TestController {
         AtomicInteger platformMaxThreads = new AtomicInteger(0);
         long startPlatform = System.currentTimeMillis();
         CountDownLatch platformLatch = new CountDownLatch(tasks);
-        
+
         try (ExecutorService executor = Executors.newFixedThreadPool(poolSize)) {
             for (int i = 0; i < tasks; i++) {
                 executor.submit(() -> {
@@ -173,37 +173,18 @@ public class TestController {
         virtualResult.put("耗时(ms)", virtualTime);
         virtualResult.put("理论最短耗时(ms)", sleepMs);
         virtualResult.put("吞吐量(tasks/sec)", tasks * 1000.0 / virtualTime);
-        
+
         Map<String, Object> platformResult = new HashMap<>();
         platformResult.put("耗时(ms)", platformTime);
         platformResult.put("理论最短耗时(ms)", (long) Math.ceil((double) tasks / poolSize) * sleepMs);
         platformResult.put("吞吐量(tasks/sec)", tasks * 1000.0 / platformTime);
-        
+
         result.put("虚拟线程", virtualResult);
         result.put("平台线程", platformResult);
         result.put("虚拟线程快了", String.format("%.2f 倍", (double) platformTime / virtualTime));
         result.put("结论", platformTime > virtualTime ? "✅ 虚拟线程更快！" : "⚠️ 平台线程更快（可能任务数太少或I/O时间太短）");
-        
+
         return result;
     }
 
-    @RequestMapping("/test1")
-    public String demo() {
-        String key = "jam";
-        if (!lockService.tryLock(key)) {
-            // 没有获取到锁返回
-            return "";
-        }
-        try {
-            // 这里写业务逻辑
-            Thread.sleep(1000);
-            System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName());
-            Thread.sleep(2 * 1000);
-        } catch (Exception e) {
-        } finally {
-            lockService.releaseLock(key);
-        }
-
-        return "Hello！";
-    }
 }

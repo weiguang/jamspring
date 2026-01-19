@@ -1,7 +1,9 @@
 package com.okayjam.web.external.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Map;
+
 import lombok.Data;
 
 /**
