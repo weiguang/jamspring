@@ -2,7 +2,7 @@
 
 > 一个基于 Spring Boot 4.x 的企业级 Web 应用脚手架项目
 
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.1-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.5-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![Java](https://img.shields.io/badge/Java-21-orange.svg)](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
 [![MyBatis](https://img.shields.io/badge/MyBatis-4.0.1-red.svg)](https://mybatis.org/mybatis-3/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
